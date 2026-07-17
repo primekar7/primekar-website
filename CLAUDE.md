@@ -1,8 +1,36 @@
 # PrimeKar Website 2026 Rebuild
 
-This file is being built up incrementally during environment setup. Additional
-project-wide rules (business-fact policy, terminology, tech stack, testing
-requirements) are added in later setup phases.
+This is the PrimeKar Website 2026 Rebuild. Environment setup is complete; page
+design and implementation have not started yet. This file will grow further
+once the master build prompt is provided.
+
+## Core rules
+
+- **Do not invent business claims.** If a fact about PrimeKar (pricing,
+  coverage area, fleet size, certifications, etc.) isn't verified, flag it as
+  missing rather than filling it in.
+- **Do not copy reference-website code, wording, photography, or branding.**
+  The `primekar-reference-lab` sibling directory exists for *learning from*
+  competitor/reference sites, never for lifting their content directly.
+- **Terminology:** use "driver," never "chauffeur."
+
+## Tech stack
+
+- Next.js (App Router) + TypeScript + Tailwind CSS + shadcn/ui + Motion
+- pnpm as the package manager
+- Use **Context7** to pull current documentation for any library before
+  relying on remembered API shapes — library APIs move fast and training data
+  goes stale.
+
+## Testing and completion standards
+
+- Test implemented pages through Playwright, not just by reading the code.
+- **Compilation alone does not mean completion.** A page that type-checks and
+  builds can still be visually broken, inaccessible, or functionally wrong —
+  verify it actually renders and behaves correctly.
+- Respect `prefers-reduced-motion` in all animation work (Motion supports this
+  natively — use it).
+- Avoid scroll hijacking, heavy WebGL, and autoplay hero video.
 
 ## UI/UX Pro Max
 

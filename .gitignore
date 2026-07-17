@@ -43,3 +43,7 @@ next-env.d.ts
 
 # claude code local settings (may contain API keys / secrets, never commit)
 .claude/settings.local.json
+
+# python bytecode cache (generated, not source)
+__pycache__/
+*.pyc
