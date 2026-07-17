@@ -49,3 +49,45 @@ It must not override:
 
 Use it to create one consistent design system. Do not let it independently
 redesign every page.
+
+## 21st.dev Magic MCP
+
+21st.dev is a component-discovery and prototyping tool.
+
+It may be used for:
+
+- Hero concepts
+- Navigation variants
+- Service cards
+- Destination cards
+- App-download sections
+- Fleet presentation
+- Testimonial layouts
+- Corporate inquiry sections
+- Micro-interaction ideas
+
+It must not:
+
+- Generate the entire PrimeKar website in one request
+- Override the approved PrimeKar design system
+- Override the PrimeKar Website Build Blueprint
+- Introduce copied branding or wording
+- Add components directly without review
+- Add unnecessary dependencies
+- Add heavy animations or effects
+- Replace shadcn as the accessible component foundation
+- Replace Motion as the primary animation system
+
+Every selected component must be:
+
+- Adapted to PrimeKar colours
+- Rewritten with PrimeKar content
+- Checked for accessibility
+- Checked for mobile responsiveness
+- Checked for performance
+- Simplified before production use
+
+Note: some 21st.dev components use the `framer-motion` package (the
+predecessor name of `motion`) rather than `motion` itself — check and
+translate imports when adapting a component, don't add `framer-motion` as a
+second animation dependency.
