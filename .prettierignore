@@ -1,0 +1,17 @@
+# build output
+.next/
+out/
+build/
+
+# dependencies
+node_modules/
+
+# lockfile — never hand-format
+pnpm-lock.yaml
+
+# third-party Claude Code skill/plugin bundles, not project source
+.claude/
+
+# generated
+next-env.d.ts
+*.tsbuildinfo

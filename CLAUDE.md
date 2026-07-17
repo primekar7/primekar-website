@@ -10,7 +10,7 @@ once the master build prompt is provided.
   coverage area, fleet size, certifications, etc.) isn't verified, flag it as
   missing rather than filling it in.
 - **Do not copy reference-website code, wording, photography, or branding.**
-  The `primekar-reference-lab` sibling directory exists for *learning from*
+  The `primekar-reference-lab` sibling directory exists for _learning from_
   competitor/reference sites, never for lifting their content directly.
 - **Terminology:** use "driver," never "chauffeur."
 
@@ -38,6 +38,7 @@ UI/UX Pro Max is an advisory tool for design systems, layout, typography,
 spacing, responsive behaviour, accessibility and UX patterns.
 
 It must not override:
+
 - PrimeKar brand colours and logo
 - PrimeKar Website Build Blueprint
 - Approved reference-site assignments

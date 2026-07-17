@@ -9,23 +9,15 @@
     },
     "shadcn": {
       "command": "npx",
-      "args": [
-        "shadcn@latest",
-        "mcp"
-      ]
+      "args": ["shadcn@latest", "mcp"]
     },
     "playwright": {
       "command": "npx",
-      "args": [
-        "@playwright/mcp@latest",
-        "--isolated"
-      ]
+      "args": ["@playwright/mcp@latest", "--isolated"]
     },
     "next-devtools": {
       "command": "npx",
-      "args": [
-        "next-devtools-mcp@latest"
-      ]
+      "args": ["next-devtools-mcp@latest"]
     }
   }
 }

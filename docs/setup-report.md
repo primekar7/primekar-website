@@ -27,15 +27,15 @@ packaging behavior, not a substitution. Of the six installed
 (`banner-design`, `brand`, `design`, `design-system`, `slides`,
 `ui-styling`), two were removed as not currently needed:
 
-| Skill | Kept? | Reason |
-|---|---|---|
-| `ui-ux-pro-max` | Yes | Originally requested |
-| `brand` | Yes | Brand identity/voice consistency for PrimeKar |
-| `design` | Yes | Design-token and asset generation support |
-| `design-system` | Yes | Token architecture / component specs |
-| `ui-styling` | Yes | shadcn/Tailwind UI implementation support |
-| `banner-design` | Removed | Not needed for the site build; ad/social banners out of current scope |
-| `slides` | Removed | Not needed for the site build; presentation generation out of current scope |
+| Skill           | Kept?   | Reason                                                                      |
+| --------------- | ------- | --------------------------------------------------------------------------- |
+| `ui-ux-pro-max` | Yes     | Originally requested                                                        |
+| `brand`         | Yes     | Brand identity/voice consistency for PrimeKar                               |
+| `design`        | Yes     | Design-token and asset generation support                                   |
+| `design-system` | Yes     | Token architecture / component specs                                        |
+| `ui-styling`    | Yes     | shadcn/Tailwind UI implementation support                                   |
+| `banner-design` | Removed | Not needed for the site build; ad/social banners out of current scope       |
+| `slides`        | Removed | Not needed for the site build; presentation generation out of current scope |
 
 All five retained skills verified structurally: valid `SKILL.md` frontmatter,
 and every bundled Python script (`brand`, `design`, `design-system`,
