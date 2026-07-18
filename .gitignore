@@ -51,3 +51,8 @@ next-env.d.ts
 # python bytecode cache (generated, not source)
 __pycache__/
 *.pyc
+
+# internal Phase A source material (blueprint PDF, build-prompt source,
+# audit-only logo masters, audit-only screenshots) — not for public serving
+# see docs/asset-audit.md and docs/decision-log.md (OPEN-12)
+docs/source-material/
