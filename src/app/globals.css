@@ -4,9 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * PrimeKar locked brand tokens (docs/master-spec-v7.md §21, docs/design-system.md).
+ * #AB8A63 (print-only gold) is intentionally NOT defined here — it must never
+ * appear in digital UI per the master spec.
+ */
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
+
+  --color-pk-teal: var(--pk-teal);
+  --color-pk-teal-elevated: var(--pk-teal-elevated);
+  --color-pk-teal-feature: var(--pk-teal-feature);
+  --color-pk-teal-deep: var(--pk-teal-deep);
+  --color-pk-gold: var(--pk-gold);
+  --color-pk-cream: var(--pk-cream);
+  --color-pk-warm-white: var(--pk-warm-white);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -45,75 +59,117 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-in: enter var(--pk-dur-base) var(--pk-ease-out);
+  --animate-out: exit var(--pk-dur-base) var(--pk-ease-out);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  /* PrimeKar locked tokens */
+  --pk-teal: #1d2b2e;
+  --pk-gold: #b8924a;
+  --pk-cream: #f5ddca;
+  --pk-warm-white: #f4efe6;
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /*
+   * Section-tone ramp (docs/design-system.md §1, derived per v7 §21).
+   * Every value below is derived from the two locked tokens (--pk-teal,
+   * --pk-gold) plus white/black via color-mix — no new raw colour is
+   * introduced. Measured contrast ratios (sRGB relative-luminance
+   * formula) are recorded in docs/design-system.md alongside the
+   * approval record (docs/homepage-review.md F-008/F-024).
+   *
+   * --pk-teal-elevated : +13% white  → ~1.5:1 vs base  (standard alternate section tone)
+   * --pk-teal-feature   : elevated +16% gold → ~1.9:1 vs base (statement/feature sections)
+   * --pk-teal-deep      : +25% black → card/panel insets only, not a full-bleed section tone
+   */
+  /*
+   * NOTE: these mix with white/black using `in srgb`, not `in oklch`.
+   * `color-mix(in oklch, <chromatic>, white N%)` was found to render as a
+   * muddy off-hue colour in this stack (Chromium resolves the mix to a
+   * `hue: none` OKLCH value that paints incorrectly) — verified visually
+   * and by canvas pixel-sampling during the F-024 visual pass. `in srgb`
+   * produces the intended teal tints/shades reliably.
+   */
+  --pk-teal-elevated: color-mix(in srgb, var(--pk-teal), white 13%);
+  --pk-teal-feature: color-mix(
+    in srgb,
+    var(--pk-teal-elevated),
+    var(--pk-gold) 16%
+  );
+  --pk-teal-deep: color-mix(in srgb, var(--pk-teal), black 25%);
+
+  /* Hairline rule tokens — deliberate gold edges/dividers (F-024) */
+  --pk-hairline: color-mix(in srgb, var(--pk-gold), transparent 65%);
+  --pk-hairline-strong: color-mix(in srgb, var(--pk-gold), transparent 35%);
+
+  /* Motion (docs/design-system.md §7) */
+  --pk-dur-fast: 150ms;
+  --pk-dur-base: 250ms;
+  --pk-dur-slow: 400ms;
+  --pk-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Spacing scale (docs/design-system.md §3) */
+  --pk-space-1: 4px;
+  --pk-space-2: 8px;
+  --pk-space-3: 12px;
+  --pk-space-4: 16px;
+  --pk-space-6: 24px;
+  --pk-space-8: 32px;
+  --pk-space-12: 48px;
+  --pk-space-16: 64px;
+  --pk-space-24: 96px;
+  --pk-space-32: 128px;
+
+  /* PrimeKar is a single dark-premium brand surface (not a toggled light/dark theme) */
+  --background: var(--pk-teal);
+  --foreground: var(--pk-warm-white);
+  --card: var(--pk-teal-elevated);
+  --card-foreground: var(--pk-warm-white);
+  --popover: var(--pk-teal-elevated);
+  --popover-foreground: var(--pk-warm-white);
+  --primary: var(--pk-gold);
+  --primary-foreground: var(--pk-teal);
+  --secondary: color-mix(in srgb, var(--pk-teal), white 10%);
+  --secondary-foreground: var(--pk-warm-white);
+  --muted: color-mix(in srgb, var(--pk-teal), white 8%);
+  /*
+   * Solid colour, not alpha-transparent (F-024 fix for a 70%-alpha version
+   * that eroded to 4.33:1 against `--pk-teal-feature`). Phase F's axe-core
+   * Playwright run (docs/page-template-review.md finding, tests/pages.spec.ts)
+   * measured this exact 20%-teal solid mix at **4.33:1 against feature
+   * again** in real Chromium — manual sRGB math and this project's in-app
+   * preview browser both computed ~4.71:1 for the same mix, so something in
+   * real Chromium's actual color-mix()/text rendering resolves the token
+   * darker than either of those predicted. Given that discrepancy, the fix
+   * is verified empirically (via the Playwright axe test) rather than by
+   * calculation: 12% teal, re-run against the same test, confirmed passing.
+   */
+  --muted-foreground: color-mix(
+    in srgb,
+    var(--pk-warm-white),
+    var(--pk-teal) 12%
+  );
+  --accent: var(--pk-gold);
+  --accent-foreground: var(--pk-teal);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: color-mix(in srgb, var(--pk-gold), transparent 78%);
+  --input: color-mix(in srgb, var(--pk-warm-white), transparent 82%);
+  --ring: var(--pk-gold);
+  --chart-1: var(--pk-gold);
+  --chart-2: var(--pk-cream);
+  --chart-3: var(--pk-warm-white);
+  --chart-4: color-mix(in srgb, var(--pk-gold), white 20%);
+  --chart-5: color-mix(in srgb, var(--pk-gold), black 20%);
+  --radius: 0.625rem;
+  --sidebar: var(--pk-teal-elevated);
+  --sidebar-foreground: var(--pk-warm-white);
+  --sidebar-primary: var(--pk-gold);
+  --sidebar-primary-foreground: var(--pk-teal);
+  --sidebar-accent: color-mix(in srgb, var(--pk-teal), white 10%);
+  --sidebar-accent-foreground: var(--pk-warm-white);
+  --sidebar-border: color-mix(in srgb, var(--pk-gold), transparent 78%);
+  --sidebar-ring: var(--pk-gold);
 }
 
 @layer base {
@@ -125,5 +181,21 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Any in-page anchor target (docs/page-template-review.md PT-011 — hash
+     links landed their heading under the sticky header, which is h-16/h-20). */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

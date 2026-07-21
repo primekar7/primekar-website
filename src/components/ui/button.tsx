@@ -1,4 +1,3 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -25,6 +24,7 @@ const buttonVariants = cva(
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        cta: "h-11 min-w-11 gap-2 rounded-full px-6 text-base font-semibold has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5 [&_svg:not([class*='size-'])]:size-5",
         icon: "size-8",
         "icon-xs":
           "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
@@ -40,15 +40,21 @@ const buttonVariants = cva(
   },
 );
 
+// Plain native <button> — no Base UI dependency (docs/page-template-review.md
+// PT-006: Base UI's Button/Dialog/NavigationMenu together were the largest
+// avoidable share of initial JS on pages with otherwise zero interactivity).
+// A real <button> already gets correct keyboard/AT semantics for free.
 function Button({
   className,
   variant = "default",
   size = "default",
+  type = "button",
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants>) {
   return (
-    <ButtonPrimitive
+    <button
       data-slot="button"
+      type={type}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

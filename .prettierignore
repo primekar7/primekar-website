@@ -15,3 +15,9 @@ pnpm-lock.yaml
 # generated
 next-env.d.ts
 *.tsbuildinfo
+
+# Phase A planning/audit docs — several (docs/master-spec-v7.md above all)
+# were saved verbatim from an approved source and must not be reformatted
+# (docs/decision-log.md D-004; docs/homepage-review.md F-001). Reformatting
+# them would silently diverge the committed spec from the approved text.
+docs/
