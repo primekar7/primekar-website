@@ -1,0 +1,526 @@
+/*
+ * Homepage hero — single mountain/Lexus scene (approved reference reproduction).
+ *
+ * Pure CSS, zero JavaScript. The Lexus is static: no entrance animation, no
+ * crossfade, no timers. This is a Server Component (see hero.tsx) — no
+ * hydration risk.
+ */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  --header-h: 64px;
+  --trust-h: 65px;
+}
+@media (min-width: 640px) {
+  .hero {
+    --header-h: 89px;
+  }
+}
+/* Desktop: the complete hero (including the trust strip) must fit inside the
+   viewport below the header on first load — no scroll to see the Lexus or
+   trust strip. svh accounts for mobile browser chrome; the plain-vh line
+   above it is the fallback for browsers that don't understand svh (an
+   invalid value on that line is ignored, not a cascade break). */
+@media (min-width: 1024px) {
+  .hero {
+    height: calc(100vh - var(--header-h));
+    height: calc(100svh - var(--header-h));
+    min-height: 640px;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .hero {
+    --trust-h: 50px;
+  }
+}
+
+/* ---- background layer (mountain photo, full-bleed, real photography) ---- */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.bgImg {
+  object-fit: cover;
+  object-position: 64% 40%;
+}
+@media (max-width: 767px) {
+  .bgImg {
+    object-position: 68% 30%;
+  }
+}
+@media (min-width: 1024px) {
+  .bgImg {
+    object-position: 64% 26%;
+  }
+}
+
+/* Readability scrims — separate overlay layers, never applied to the photo itself */
+.scrimLeft {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--pk-teal-deep), transparent 10%) 0%,
+    color-mix(in srgb, var(--pk-teal-deep), transparent 38%) 36%,
+    color-mix(in srgb, var(--pk-teal-deep), transparent 88%) 68%,
+    transparent 100%
+  );
+}
+@media (max-width: 767px) {
+  .scrimLeft {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--pk-teal), black 20%) 0%,
+      color-mix(in srgb, var(--pk-teal), black 5%) 38%,
+      transparent 60%
+    );
+  }
+}
+.scrimEdges {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--pk-teal-deep), black 10%) 0%,
+      transparent 22%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, transparent 16%);
+}
+
+/* ---- content ---- */
+.inner {
+  position: relative;
+  z-index: 2;
+  padding-top: clamp(32px, 4.5vw, 64px);
+  padding-bottom: clamp(280px, 34vw, 480px);
+}
+@media (max-width: 1023px) {
+  /* Fixed (not fluid) reserve at the tablet tier — verified against the
+     smaller .vehicleWrap size defined below so the vehicle never overlaps
+     the CTAs/description above it (checked at 768px and 1023px). */
+  .inner {
+    padding-bottom: 320px;
+  }
+}
+@media (max-width: 767px) {
+  .inner {
+    padding-top: 20px;
+    padding-bottom: 0;
+  }
+}
+/* Desktop (viewport-height hero): the vehicle/trust-strip are positioned
+   absolutely against `.hero`'s own explicit height, not reserved via flow
+   padding — the old fluid padding-bottom reserve above no longer applies. */
+@media (min-width: 1024px) {
+  .inner {
+    padding-top: 40px;
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .inner {
+    padding-top: 24px;
+  }
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 767px) {
+  .topRow {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 160px);
+    gap: 12px;
+  }
+}
+/* Below 360px the two-column top row gets too cramped for both the headline
+   and the info block to stay comfortably readable — stack instead. */
+@media (max-width: 359px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .info {
+    padding-top: 0;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pk-gold);
+}
+.eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: var(--pk-hairline-strong);
+  flex-shrink: 0;
+}
+
+.headline {
+  margin-top: 18px;
+  max-width: 14ch;
+  overflow-wrap: break-word;
+  font-size: clamp(2.25rem, 5.2vw, 4.25rem);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--pk-warm-white);
+}
+@media (max-width: 767px) {
+  .headline {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .headline {
+    margin-top: 8px;
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    line-height: 1;
+  }
+}
+.headline .accent {
+  color: var(--pk-gold);
+}
+
+.desc {
+  margin-top: 22px;
+  max-width: 44ch;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--pk-cream);
+}
+@media (max-width: 767px) {
+  .desc {
+    font-size: 1rem;
+    margin-top: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .desc {
+    margin-top: 16px;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .desc {
+    margin-top: 8px;
+  }
+}
+
+.ctas {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .ctas {
+    flex-direction: column;
+    margin-top: 22px;
+  }
+}
+@media (min-width: 1024px) {
+  .ctas {
+    margin-top: 22px;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .ctas {
+    margin-top: 12px;
+  }
+}
+
+/* Larger CTA treatment for the hero only — the shared `cta` button size
+   stays untouched so header/other sections are unaffected. */
+.ctaButton {
+  height: 56px;
+  padding-left: 32px;
+  padding-right: 32px;
+  font-size: 1.0625rem;
+}
+@media (max-width: 767px) {
+  .ctaButton {
+    height: 50px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .ctaButton {
+    height: 46px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 0.9375rem;
+  }
+}
+
+/* ---- right-side info block: minimal, borderless ---- */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+}
+.infoTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.infoIcon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--pk-hairline-strong);
+  color: var(--pk-gold);
+}
+@media (max-width: 767px) {
+  .infoIcon {
+    width: 34px;
+    height: 34px;
+  }
+}
+.infoTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pk-warm-white);
+}
+@media (max-width: 767px) {
+  .infoTitle {
+    font-size: 0.875rem;
+  }
+}
+.infoDivider {
+  width: 30px;
+  height: 1px;
+  background: var(--pk-hairline-strong);
+  margin-left: 60px;
+}
+@media (max-width: 767px) {
+  .infoDivider {
+    margin-left: 0;
+  }
+}
+.infoList {
+  list-style: none;
+  margin: 0 0 0 60px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+@media (max-width: 767px) {
+  .infoList {
+    margin-left: 0;
+  }
+}
+.infoList li {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--pk-cream);
+}
+@media (max-width: 767px) {
+  .infoList li {
+    font-size: 0.75rem;
+  }
+}
+
+/* ---- vehicle stage ----
+   A direct sibling of the padded Container (not nested inside it), so
+   `right` resolves against the full hero width — true full-bleed, no
+   negative-margin escape hatch needed to reach the visual edge. */
+.vehicleStage {
+  position: absolute;
+  right: clamp(48px, 5vw, 72px);
+  bottom: clamp(64px, 6vw, 86px);
+  z-index: 2;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .vehicleStage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 22px;
+  }
+}
+/* Desktop viewport-height hero: anchor the vehicle a fixed gap above the
+   trust strip (itself sized by --trust-h, see .hero) instead of a vw-based
+   offset tuned for the old fixed-1033px-tall hero. */
+@media (min-width: 1024px) {
+  .vehicleStage {
+    right: clamp(32px, 4vw, 56px);
+    bottom: calc(var(--trust-h) + 20px);
+  }
+}
+
+.vehicleWrap {
+  position: relative;
+  width: clamp(340px, 47vw, 680px);
+  aspect-ratio: 1536 / 864;
+}
+@media (max-width: 1023px) {
+  .vehicleWrap {
+    width: clamp(280px, 40vw, 380px);
+  }
+}
+/* +30% over the previous fitted clamp(340px, 42vh, 520px) — same formula,
+   each bound scaled by 1.3. */
+@media (min-width: 1024px) {
+  .vehicleWrap {
+    width: clamp(442px, 54.6vh, 676px);
+  }
+}
+/* +30% over the previous fitted clamp(300px, 40vh, 400px). */
+@media (min-width: 1024px) and (max-height: 850px) {
+  .vehicleWrap {
+    width: clamp(390px, 52vh, 520px);
+  }
+}
+@media (max-width: 767px) {
+  .vehicleWrap {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.vehicleImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Contact shadow — separate layer beneath the vehicle wrap, never baked into
+   the PNGs. Concentrated under the tires/lower chassis, fades into the road. */
+.vehicleShadow {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: 72%;
+  height: 14%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse 50% 100% at center,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.24) 45%,
+    transparent 80%
+  );
+  filter: blur(6px);
+  z-index: 0;
+}
+
+/* Subtle road reflection — vertically flipped copy of the stopped vehicle,
+   masked to fade quickly, kept secondary. Disabled on mobile/tablet. The
+   inner wrapper is sized to the vehicle's own aspect ratio (not the clipped
+   band) so the Next Image `fill` layer renders the full car before the
+   outer band + mask crop and fade it. */
+.vehicleReflection {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 40%;
+  overflow: hidden;
+  opacity: 0.14;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 70%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.vehicleReflectionInner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  aspect-ratio: 1536 / 864;
+  transform: scaleY(-1);
+  transform-origin: top;
+}
+@media (max-width: 1023px) {
+  .vehicleReflection {
+    display: none;
+  }
+}
+
+/* ---- integrated bottom trust strip ---- */
+.trustStrip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  border-top: 1px solid var(--pk-hairline);
+  background: color-mix(in srgb, var(--pk-teal-deep), transparent 18%);
+  backdrop-filter: blur(4px);
+}
+@media (max-width: 767px) {
+  .trustStrip {
+    position: relative;
+    margin-top: 24px;
+  }
+}
+.trustRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 767px) {
+  .trustRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.trustItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 22px 16px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pk-cream);
+  border-left: 1px solid var(--pk-hairline);
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .trustItem {
+    padding: 14px 16px;
+  }
+}
+.trustItem:first-child {
+  border-left: none;
+}
+@media (max-width: 767px) {
+  .trustItem:nth-child(3) {
+    border-left: none;
+  }
+}
+.trustItem span {
+  color: var(--pk-gold);
+  flex-shrink: 0;
+}

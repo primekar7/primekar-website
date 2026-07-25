@@ -56,3 +56,6 @@ __pycache__/
 # audit-only logo masters, audit-only screenshots) — not for public serving
 # see docs/asset-audit.md and docs/decision-log.md (OPEN-12)
 docs/source-material/
+
+# visual-reset concept prototypes (research phase — never commit)
+/prototypes/

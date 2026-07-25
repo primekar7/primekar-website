@@ -1,0 +1,105 @@
+PrimeKar Website — Migration Asset Manifest
+Generated: 2026-07-24 (local), 2026-07-25T05:23:00Z (UTC)
+Repository: primekar-website (feature/primekar-visual-reset)
+
+NOTE (verified via SHA-256 below, not a fix applied in this checkpoint):
+public/images/hero/lexus-lx600-moving.png is byte-identical to
+docs/source-material/assets/hero-refs/lexus-lx600-stopped-clean.png, and
+public/images/hero/lexus-lx600-stopped.png is byte-identical to
+docs/source-material/assets/hero-refs/lexus-lx600-moving-clean.png. The
+"moving"/"stopped" labels are swapped between the production filenames and
+the "-clean" reference filenames. This does not affect the current build —
+hero.tsx only loads lexus-lx600-stopped.png (the code comment confirms it as
+the "real transparent cutout (RGBA verified)" asset actually in use) — but
+flag it for whoever next works on the vehicle-swap/second scene so the
+naming gets reconciled rather than assumed correct.
+
+==================================================
+docs/source-material/assets/hero-refs/
+==================================================
+docs/source-material/assets/hero-refs/lexus-lx600-moving-clean.png
+  size: 581018 bytes
+  dimensions: 1536x864
+  sha256: e13d53abbbdbbe3fbe3fd17e6ddb8620c2a7a01eb430365bf967bf21c8756159
+
+docs/source-material/assets/hero-refs/lexus-lx600-moving.PNG
+  size: 636550 bytes
+  dimensions: 1536x864
+  sha256: 1986d4483f0664b2275e86245ad120c0f28da0848fa012fe7fcd479a78602655
+
+docs/source-material/assets/hero-refs/lexus-lx600-stopped-clean.png
+  size: 583918 bytes
+  dimensions: 1536x864
+  sha256: 92d46a2f7a03282eb3d616365244958cc3bd67157de1ced52e7a660d743b9743
+
+docs/source-material/assets/hero-refs/lexus-lx600-stopped.PNG
+  size: 615349 bytes
+  dimensions: 1536x864
+  sha256: 7632d573cb75b3db5af2472f8bf1d1e577a481fe4e9240614164359ac9e57270
+
+docs/source-material/assets/hero-refs/primekar-approved-desktop-hero-reference.PNG
+  size: 627399 bytes
+  dimensions: 723x542
+  sha256: 8ffdf6ce74a0207bcf6fe48ff906d1b3119898ea33a4fe51a9b2767dfc90b71e
+
+docs/source-material/assets/hero-refs/primekar-approved-mobile-hero-reference.PNG
+  size: 1629039 bytes
+  dimensions: 890x1768
+  sha256: 9aca2951206955991d3387d332274962073c565e9c43b34672fa105dbbfdbb76
+
+docs/source-material/assets/hero-refs/primekar-current-hero-comparison.png
+  size: 1267820 bytes
+  dimensions: 1536x1152
+  sha256: f6d9fb0658538aa0ba716bc7b8d5c4f3934ae769c125e602944f0b7c1bcdcfd4
+
+docs/source-material/assets/hero-refs/primekar-current-rejected-hero.png
+  size: 1430489 bytes
+  dimensions: 1536x1152
+  sha256: 7ddcfd1ca7558f2cc9e93e5743af4c5254fb6f402e328d7b0dfd3cb2ca6f1db3
+
+docs/source-material/assets/hero-refs/primekar-mountain-hero-background.PNG
+  size: 1928208 bytes
+  dimensions: 1672x941
+  sha256: 89ab534a9af63c5ff9f251ecc336675bfe386f3f8af4a346f30d2bea3a885a65
+
+==================================================
+public/images/hero/
+==================================================
+public/images/hero/lexus-lx600-moving.png
+  size: 583918 bytes
+  dimensions: 1536x864
+  sha256: 92d46a2f7a03282eb3d616365244958cc3bd67157de1ced52e7a660d743b9743
+
+public/images/hero/lexus-lx600-stopped.png
+  size: 581018 bytes
+  dimensions: 1536x864
+  sha256: e13d53abbbdbbe3fbe3fd17e6ddb8620c2a7a01eb430365bf967bf21c8756159
+
+public/images/hero/primekar-mountain-hero-background.png
+  size: 1928208 bytes
+  dimensions: 1672x941
+  sha256: 89ab534a9af63c5ff9f251ecc336675bfe386f3f8af4a346f30d2bea3a885a65
+
+==================================================
+prototypes/
+==================================================
+prototypes/direction-a-editorial-alberta.html
+  size: 34067 bytes
+  dimensions: n/a
+  sha256: 65c245483f5aff48d1fce591b49e818a643112ecc7e137cc31bc74a7af72bcad
+
+prototypes/direction-b-cinematic-app.html
+  size: 28600 bytes
+  dimensions: n/a
+  sha256: 16d41408301c87d062834a61ee1a3c2f047ee5ebc9e7331f9be7ba619ea53f8b
+
+prototypes/direction-c-modern-corporate.html
+  size: 29261 bytes
+  dimensions: n/a
+  sha256: 70a16cf31ec0cd31c577e1a28b544cea8b2f5200c3a26525cac284b28dfd8b22
+
+prototypes/direction-d-cinematic-journey.html
+  size: 58141 bytes
+  dimensions: n/a
+  sha256: 6efc3787a0366e0c6e6c7b61f88d126a05a1717ea21c8a45887308d47d404379
+

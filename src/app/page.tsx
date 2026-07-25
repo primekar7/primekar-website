@@ -1,7 +1,6 @@
 import { Header } from "@/components/chrome/header";
 import { Footer } from "@/components/chrome/footer";
 import { Hero } from "@/components/sections/hero";
-import { TrustStrip } from "@/components/sections/trust-strip";
 import { ServiceFamilies } from "@/components/sections/service-families";
 import { WhyPreScheduled } from "@/components/sections/why-pre-scheduled";
 import { HowItWorks } from "@/components/sections/how-it-works";
@@ -23,7 +22,6 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
-        <TrustStrip />
         <ServiceFamilies />
         <WhyPreScheduled />
         <HowItWorks />
